@@ -1,43 +1,35 @@
-import re
 import pytest
-from playwright.sync_api import Page, expect
-from config.config import BASE_URL
+from playwright.sync_api import Page
+
+from pages.home_page import HomePage
+from pages.login_page import LoginPage
 
 
 PASSWORD = "Vinay@12345"
 
 
+@pytest.fixture
+def home_page(page: Page):
+    return HomePage(page)
+
+
+@pytest.fixture
+def login_page(page: Page):
+    return LoginPage(page)
+
+
 @pytest.mark.ui
-def test_login_full_flow(page: Page):
-    # 1. Open website
-    page.goto(BASE_URL)
+def test_login_full_flow(home_page: HomePage, login_page: LoginPage):
+    # 1. Open website and switch to English
+    home_page.navigate()
+    home_page.click_language_toggle()
+    home_page.select_english()
 
-    # 2. Click language toggle image
-    page.locator("img").nth(3).click()
+    # 2. Open sign-in modal
+    home_page.click_sign_in()
 
-    # 3. Select English
-    page.get_by_text("English").click()
+    # 3. Log in via modal
+    login_page.login_via_modal("+91 97943-05933", PASSWORD)
 
-    # 4. Click Sign In (سجل in English)
-    page.get_by_role("link", name="Sign In").click()
-
-    # 5. Open country code selector
-    page.get_by_role("button", name="Saudi Arabia: +").click()
-
-    # 6. Search for India
-    page.get_by_role("searchbox", name="Search country").fill("ind")
-
-    # 7. Select India (+91)
-    page.get_by_text("+91").click()
-
-    # 8. Enter phone number
-    page.get_by_role("textbox", name="Member Phone Number").fill("+91 97943-05933")
-
-    # 9. Enter password
-    page.get_by_role("textbox", name="Enter Your Password").fill(PASSWORD)
-
-    # 10. Click Log In
-    page.get_by_role("button", name="Log In").click()
-
-    # 11. Verify successful login by checking URL or page title
-    expect(page).not_to_have_url(re.compile(".*login.*"))
+    # 4. Verify successful login
+    login_page.expect_not_on_login_page()

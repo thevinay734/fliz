@@ -1,0 +1,80 @@
+name: Fliz Test Automation
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  api-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Cache pip dependencies
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('requirements.txt') }}
+
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+
+      - name: Run API tests
+        run: pytest -m api -v --alluredir=reports/allure-results
+        env:
+          BASE_URL: ${{ secrets.BASE_URL || 'https://dev.fliz.com.sa/' }}
+          API_BASE_URL: ${{ secrets.API_BASE_URL || 'https://dev.api.fliz.com.sa/' }}
+          LOGIN_PHONE: ${{ secrets.LOGIN_PHONE }}
+          LOGIN_PASSWORD: ${{ secrets.LOGIN_PASSWORD }}
+
+      - name: Upload Allure results
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: allure-results-api
+          path: reports/allure-results
+
+  ui-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Cache pip dependencies
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('requirements.txt') }}
+
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+          playwright install chromium
+
+      - name: Run UI tests
+        run: pytest -m ui -v --headed=false --alluredir=reports/allure-results
+        env:
+          BASE_URL: ${{ secrets.BASE_URL || 'https://dev.fliz.com.sa/' }}
+          API_BASE_URL: ${{ secrets.API_BASE_URL || 'https://dev.api.fliz.com.sa/' }}
+          LOGIN_PHONE: ${{ secrets.LOGIN_PHONE }}
+          LOGIN_PASSWORD: ${{ secrets.LOGIN_PASSWORD }}
+          HEADLESS: true
+
+      - name: Upload Allure results
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: allure-results-ui
+          path: reports/allure-results

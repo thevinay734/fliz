@@ -1,147 +1,47 @@
-import random
-import re
-import time
-
 import pytest
-from playwright.sync_api import Page, expect
+
+from pages.create_booking_page import CreateBookingPage
+from pages.login_page import LoginPage
 
 
 @pytest.mark.ui
-def test_create_booking_full_flow(page: Page):
-    # 1. Open website
-    page.goto("https://dev.fliz.com.sa/ar/renter/companies")
-    time.sleep(2)
+def test_create_booking_full_flow(booking_page: CreateBookingPage, login_page: LoginPage):
+    # 1. Open website and switch language
+    booking_page.open_companies_page()
+    booking_page.switch_to_english()
 
-    # 2. Click language toggle
-    page.locator("img").nth(3).click()
-    time.sleep(1)
+    # 2. Log in via modal
+    booking_page.click_sign_in()
+    login_page.login_via_modal("+91 97943-05933", "Vinay@12345")
 
-    # 3. Select English
-    page.get_by_text("English").click()
-    time.sleep(1)
+    # 3. Navigate to page 3 and select company
+    booking_page.go_to_pagination_page("3")
+    booking_page.select_company("Rocks 5 Price")
 
-    # 4. Click Sign In
-    page.get_by_role("link", name="Sign In").click()
-    time.sleep(1)
+    # 4. Select slot and continue
+    booking_page.select_first_available_slot()
+    booking_page.click_continue()
 
-    # 5. Open country code selector
-    page.get_by_role("button", name="Saudi Arabia: +").click()
-    time.sleep(1)
+    # 5. Fill booking form
+    booking_page.increase_quantity()
+    booking_page.select_start_date_first_enabled()
+    booking_page.enter_duration("2")
+    booking_page.select_duration_unit("Week")
+    booking_page.enter_and_select_address("noida", "Noida, Uttar Pradesh, India")
 
-    # 6. Search for India
-    page.get_by_role("searchbox", name="Search country").fill("ind")
-    time.sleep(1)
+    # 6. Agreements
+    booking_page.check_agreement(index=0)
+    booking_page.open_rental_contracts_popup()
+    booking_page.check_agreement(index=1)
 
-    # 7. Select India
-    page.get_by_text("India", exact=True).click()
-    time.sleep(1)
+    # 7. Payment flow
+    booking_page.open_payment_method_dropdown()
+    booking_page.click_continue()
+    booking_page.select_payment_span(4)
+    booking_page.select_payment_span(5)
+    booking_page.open_final_payment_dropdown()
+    booking_page.click_pay_now()
+    booking_page.complete_payment()
 
-    # 8. Enter phone number
-    page.get_by_role("textbox", name="Member Phone Number").fill("+91 97943-05933")
-    time.sleep(1)
-
-    # 9. Enter password
-    page.get_by_role("textbox", name="Enter Your Password").fill("Vinay@12345")
-    time.sleep(1)
-
-    # 10. Click Log In
-    page.get_by_role("button", name="Log In").click()
-    time.sleep(3)
-
-    # 11. Navigate to page 3
-    page.get_by_role("button", name="Page 3").click()
-    time.sleep(1)
-
-    # 12. Select company "Rocks 5 Price"
-    page.get_by_role("link", name="Rocks 5 Price").click()
-    time.sleep(2)
-
-    # 13. Select first available slot
-    page.get_by_text(re.compile(r"Available.*")).first.click()
-    time.sleep(1)
-
-    # 14. Click Continue
-    page.get_by_role("button", name="Continue").click()
-    time.sleep(2)
-
-    # 15. Increase quantity
-    page.get_by_role("img", name="plus").click()
-    time.sleep(1)
-
-    # 16. Open date picker
-    page.locator("div").filter(has_text=re.compile(r"^Select start date & time$")).nth(2).click()
-    time.sleep(1)
-
-    # 17. Select first enabled available date (skip disabled past dates)
-    page.locator("[role='option']:not([aria-disabled='true'])").first.click()
-    time.sleep(1)
-
-    # 18. Enter duration
-    page.locator("#duration").fill("2")
-    time.sleep(1)
-
-    # 19. Click Day dropdown
-    page.locator("div").filter(has_text=re.compile(r"^Day$")).nth(3).click()
-    time.sleep(1)
-
-    # 20. Select Week
-    page.get_by_role("option", name="Week").click()
-    time.sleep(1)
-
-    # 21. Clear and fill address
-    address_field = page.get_by_role("combobox", name="Alamal Plaza Hail Street..")
-    address_field.click()
-    time.sleep(1)
-    address_field.press("ControlOrMeta+a")
-    address_field.fill("noida")
-    time.sleep(1)
-
-    # 22. Select Noida address
-    page.get_by_role("option", name="Noida, Uttar Pradesh, India", exact=True).click()
-    time.sleep(1)
-
-    # 23. Check first agreement checkbox
-    page.get_by_role("img", name="unchecked button").first.click()
-    time.sleep(1)
-
-    # 24. Handle Rental Contracts popup
-    with page.expect_popup() as page1_info:
-        page.locator("label").filter(has_text="Rental Contracts").click()
-    page1 = page1_info.value
-    time.sleep(2)
-    page1.close()
-    time.sleep(1)
-
-    # 25. Check second checkbox
-    page.get_by_role("img", name="unchecked button").click()
-    time.sleep(1)
-
-    # 26. Open payment method dropdown
-    page.locator("div:nth-child(2) > .flex.items-center.justify-between > .relative > .absolute.bg-black").click()
-    time.sleep(1)
-
-    # 27. Click Continue
-    page.get_by_role("button", name="Continue").click()
-    time.sleep(2)
-
-    # 28. Select payment spans (force to bypass radio overlay)
-    page.locator("span").nth(4).click(force=True)
-    time.sleep(1)
-    page.locator("span").nth(5).click(force=True)
-    time.sleep(1)
-
-    # 29. Open final payment dropdown
-    page.locator(".flex.items-center.gap-3 > .relative > .absolute.bg-black").click(force=True)
-    time.sleep(1)
-
-    # 30. Click Pay now
-    page.get_by_role("button", name="Pay now").click()
-    time.sleep(2)
-
-    # 31. Click Pay inside iframe
-    iframe = page.locator("iframe[name='registrations-target']")
-    iframe.content_frame.get_by_role("button", name="Pay").click()
-    time.sleep(3)
-
-    # 32. Wait to see final page
-    time.sleep(5)
+    # 8. Wait to see final page
+    booking_page.wait_for_final_page(5)

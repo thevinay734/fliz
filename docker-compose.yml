@@ -1,0 +1,28 @@
+version: "3.8"
+
+services:
+  tests:
+    build: .
+    environment:
+      - BASE_URL=${BASE_URL:-https://dev.fliz.com.sa/}
+      - API_BASE_URL=${API_BASE_URL:-https://dev.api.fliz.com.sa/}
+      - HEADLESS=${HEADLESS:-true}
+      - LOG_LEVEL=${LOG_LEVEL:-INFO}
+      - ENVIRONMENT=${ENVIRONMENT:-dev}
+    volumes:
+      - ./reports:/app/reports
+      - ./logs:/app/logs
+    command: ["-m", "api", "-v", "--alluredir=reports/allure-results"]
+
+  ui-tests:
+    build: .
+    environment:
+      - BASE_URL=${BASE_URL:-https://dev.fliz.com.sa/}
+      - API_BASE_URL=${API_BASE_URL:-https://dev.api.fliz.com.sa/}
+      - HEADLESS=${HEADLESS:-true}
+      - LOG_LEVEL=${LOG_LEVEL:-INFO}
+      - ENVIRONMENT=${ENVIRONMENT:-dev}
+    volumes:
+      - ./reports:/app/reports
+      - ./logs:/app/logs
+    command: ["-m", "ui", "-v", "--alluredir=reports/allure-results"]

@@ -1,0 +1,52 @@
+5-04 18:25:41,633 [INFO] ➡️  POST https://dev.api.fliz.com.sa/api/v1/common/auth/login
+2026-05-04 18:25:41,839 [INFO] ⬅️  200 https://dev.api.fliz.com.sa/api/v1/common/auth/login (206ms)
+2026-05-04 18:25:41,846 [INFO] ➡️  POST https://dev.api.fliz.com.sa/api/v1/common/auth/login
+2026-05-04 18:25:41,884 [INFO] ⬅️  422 https://dev.api.fliz.com.sa/api/v1/common/auth/login (38ms)
+2026-05-04 18:25:41,892 [INFO] ➡️  POST https://dev.api.fliz.com.sa/api/v1/common/auth/login
+2026-05-04 18:25:41,929 [INFO] ⬅️  404 https://dev.api.fliz.com.sa/api/v1/common/auth/login (37ms)
+2026-05-04 18:25:41,938 [INFO] ➡️  POST https://dev.api.fliz.com.sa/api/v1/common/auth/login
+2026-05-04 18:25:42,031 [INFO] ⬅️  422 https://dev.api.fliz.com.sa/api/v1/common/auth/login (93ms)
+2026-05-04 18:25:42,044 [INFO] ➡️  POST https://dev.api.fliz.com.sa/api/v1/common/auth/login
+2026-05-04 18:25:42,081 [INFO] ⬅️  422 https://dev.api.fliz.com.sa/api/v1/common/auth/login (37ms)
+2026-05-04 18:25:42,088 [INFO] ➡️  POST https://dev.api.fliz.com.sa/api/v1/common/auth/login
+2026-05-04 18:25:42,327 [INFO] ⬅️  400 https://dev.api.fliz.com.sa/api/v1/common/auth/login (239ms)
+2026-05-04 18:25:42,331 [INFO] ➡️  POST https://dev.api.fliz.com.sa/api/v1/common/auth/login
+2026-05-04 18:25:42,368 [INFO] ⬅️  422 https://dev.api.fliz.com.sa/api/v1/common/auth/login (37ms)
+2026-05-04 18:25:42,376 [INFO] ➡️  POST https://dev.api.fliz.com.sa/api/v1/common/auth/login
+2026-05-04 18:25:42,504 [INFO] ⬅️  422 https://dev.api.fliz.com.sa/api/v1/common/auth/login (128ms)
+2026-05-04 18:25:42,508 [INFO] ➡️  POST https://dev.api.fliz.com.sa/api/v1/common/auth/login
+2026-05-04 18:25:42,738 [INFO] ⬅️  200 https://dev.api.fliz.com.sa/api/v1/common/auth/login (230ms)
+2026-05-04 18:25:42,744 [INFO] ➡️  POST https://dev.api.fliz.com.sa/api/v1/common/auth/login
+2026-05-04 18:25:42,986 [INFO] ⬅️  200 https://dev.api.fliz.com.sa/api/v1/common/auth/login (242ms)
+2026-05-04 18:25:43,083 [INFO] ➡️  POST https://dev.api.fliz.com.sa/api/v1/common/auth/signUp
+2026-05-04 18:25:43,116 [INFO] ⬅️  422 https://dev.api.fliz.com.sa/api/v1/common/auth/signUp (33ms)
+2026-05-04 14:05:48,066 [INFO] ➡️  POST https://dev.api.fliz.com.sa/api/v1/common/auth/login
+2026-05-04 14:05:48,479 [INFO] ⬅️  200 https://dev.api.fliz.com.sa/api/v1/common/auth/login (412ms)
+2026-05-04 14:05:48,484 [INFO] ➡️  POST https://dev.api.fliz.com.sa/api/v1/common/auth/login
+2026-05-04 14:05:48,601 [INFO] ⬅️  404 https://dev.api.fliz.com.sa/api/v1/common/auth/login (116ms)
+2026-05-04 14:05:48,608 [INFO] ➡️  POST https://dev.api.fliz.com.sa/api/v1/common/auth/login
+2026-05-04 14:05:48,648 [INFO] ⬅️  422 https://dev.api.fliz.com.sa/api/v1/common/auth/login (40ms)
+2026-05-04 14:05:48,656 [INFO] ➡️  POST https://dev.api.fliz.com.sa/api/v1/common/auth/login
+2026-05-04 14:05:48,698 [INFO] ⬅️  422 https://dev.api.fliz.com.sa/api/v1/common/auth/login (41ms)
+2026-05-04 14:05:48,704 [INFO] ➡️  POST https://dev.api.fliz.com.sa/api/v1/common/auth/login
+2026-05-04 14:05:48,747 [INFO] ⬅️  422 https://dev.api.fliz.com.sa/api/v1/common/auth/login (43ms)
+2026-05-04 14:05:48,753 [INFO] ➡️  POST https://dev.api.fliz.com.sa/api/v1/common/auth/login
+2026-05-04 14:05:48,926 [INFO] ⬅️  200 https://dev.api.fliz.com.sa/api/v1/common/auth/login (172ms)
+2026-05-04 14:05:48,934 [INFO] ➡️  POST https://dev.api.fliz.com.sa/api/v1/common/auth/login
+2026-05-04 14:05:48,972 [INFO] ⬅️  422 https://dev.api.fliz.com.sa/api/v1/common/auth/login (38ms)
+2026-05-04 14:05:48,977 [INFO] ➡️  POST https://dev.api.fliz.com.sa/api/v1/common/auth/login
+2026-05-04 14:05:49,018 [INFO] ⬅️  404 https://dev.api.fliz.com.sa/api/v1/common/auth/login (41ms)
+2026-05-04 14:05:49,025 [INFO] ➡️  POST https://dev.api.fliz.com.sa/api/v1/common/auth/login
+2026-05-04 14:05:49,127 [INFO] ⬅️  422 https://dev.api.fliz.com.sa/api/v1/common/auth/login (102ms)
+2026-05-04 14:05:49,134 [INFO] ➡️  POST https://dev.api.fliz.com.sa/api/v1/common/auth/login
+2026-05-04 14:05:49,173 [INFO] ⬅️  422 https://dev.api.fliz.com.sa/api/v1/common/auth/login (39ms)
+2026-05-04 14:05:49,188 [INFO] ➡️  POST https://dev.api.fliz.com.sa/api/v1/common/auth/login
+2026-05-04 14:05:49,348 [INFO] ⬅️  400 https://dev.api.fliz.com.sa/api/v1/common/auth/login (161ms)
+2026-05-04 14:05:49,356 [INFO] ➡️  POST https://dev.api.fliz.com.sa/api/v1/common/auth/login
+2026-05-04 14:05:49,396 [INFO] ⬅️  422 https://dev.api.fliz.com.sa/api/v1/common/auth/login (41ms)
+2026-05-04 14:05:49,401 [INFO] ➡️  POST https://dev.api.fliz.com.sa/api/v1/common/auth/login
+2026-05-04 14:05:49,441 [INFO] ⬅️  422 https://dev.api.fliz.com.sa/api/v1/common/auth/login (40ms)
+2026-05-04 14:05:49,444 [INFO] ➡️  POST https://dev.api.fliz.com.sa/api/v1/common/auth/login
+2026-05-04 14:05:49,651 [INFO] ⬅️  200 https://dev.api.fliz.com.sa/api/v1/common/auth/login (206ms)
+2026-05-04 14:05:49,659 [INFO] ➡️  POST https://dev.api.fliz.com.sa/api/v1/common/auth/login
+2026-05-04 14:05:49,835 [INFO] ⬅️  200 https://dev.api.fliz.com.sa/api/v1/common/auth/login (175ms)
