@@ -16,8 +16,7 @@ echo "Environment: $ENV"
 echo "Headless:    $HEADLESS"
 echo ""
 
-# Clean old reports
-rm -rf reports/allure-results/*
+# Clean old reports (handled by pytest --clean-alluredir)
 mkdir -p reports/allure-results logs
 
 # Run API tests

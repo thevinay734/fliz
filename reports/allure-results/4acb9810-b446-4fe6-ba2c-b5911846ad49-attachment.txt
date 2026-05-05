@@ -1,2 +1,0 @@
-INFO     ApiClient:api_client.py:62 ➡️  POST https://dev.api.fliz.com.sa/api/v1/common/auth/login
-INFO     ApiClient:api_client.py:72 ⬅️  422 https://dev.api.fliz.com.sa/api/v1/common/auth/login (102ms)

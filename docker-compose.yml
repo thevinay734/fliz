@@ -12,7 +12,7 @@ services:
     volumes:
       - ./reports:/app/reports
       - ./logs:/app/logs
-    command: ["-m", "api", "-v", "--alluredir=reports/allure-results"]
+    command: ["-m", "api", "-v", "--clean-alluredir", "--alluredir=reports/allure-results"]
 
   ui-tests:
     build: .
@@ -25,4 +25,4 @@ services:
     volumes:
       - ./reports:/app/reports
       - ./logs:/app/logs
-    command: ["-m", "ui", "-v", "--alluredir=reports/allure-results"]
+    command: ["-m", "ui", "-v", "--clean-alluredir", "--alluredir=reports/allure-results"]

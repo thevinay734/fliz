@@ -174,3 +174,39 @@
 2026-05-04 14:18:47,743 [INFO] ⬅️  201 https://dev.api.fliz.com.sa/api/v1/common/auth/signUp (262ms)
 2026-05-04 14:18:47,754 [INFO] ➡️  POST https://dev.api.fliz.com.sa/api/v1/common/auth/signUp
 2026-05-04 14:18:47,929 [INFO] ⬅️  201 https://dev.api.fliz.com.sa/api/v1/common/auth/signUp (174ms)
+2026-05-05 15:39:54,513 [INFO] ➡️  POST https://dev.api.fliz.com.sa/api/v1/common/auth/vendor-signUp
+2026-05-05 15:39:54,786 [INFO] ⬅️  404 https://dev.api.fliz.com.sa/api/v1/common/auth/vendor-signUp (273ms)
+2026-05-05 15:39:54,839 [INFO] ➡️  POST https://dev.api.fliz.com.sa/api/v1/common/auth/vendor-signUp
+2026-05-05 15:39:54,928 [INFO] ⬅️  404 https://dev.api.fliz.com.sa/api/v1/common/auth/vendor-signUp (89ms)
+2026-05-05 15:39:54,931 [INFO] ➡️  POST https://dev.api.fliz.com.sa/api/v1/common/auth/vendor-signUp
+2026-05-05 15:39:54,964 [INFO] ⬅️  404 https://dev.api.fliz.com.sa/api/v1/common/auth/vendor-signUp (33ms)
+2026-05-05 15:39:54,968 [INFO] ➡️  POST https://dev.api.fliz.com.sa/api/v1/common/auth/vendor-signUp
+2026-05-05 15:39:55,005 [INFO] ⬅️  404 https://dev.api.fliz.com.sa/api/v1/common/auth/vendor-signUp (37ms)
+2026-05-05 15:39:55,011 [INFO] ➡️  POST https://dev.api.fliz.com.sa/api/v1/common/auth/vendor-signUp
+2026-05-05 15:39:55,046 [INFO] ⬅️  404 https://dev.api.fliz.com.sa/api/v1/common/auth/vendor-signUp (35ms)
+2026-05-05 15:39:55,053 [INFO] ➡️  POST https://dev.api.fliz.com.sa/api/v1/common/auth/vendor-signUp
+2026-05-05 15:39:55,087 [INFO] ⬅️  404 https://dev.api.fliz.com.sa/api/v1/common/auth/vendor-signUp (34ms)
+2026-05-05 15:39:55,093 [INFO] ➡️  POST https://dev.api.fliz.com.sa/api/v1/common/auth/vendor-signUp
+2026-05-05 15:39:55,127 [INFO] ⬅️  404 https://dev.api.fliz.com.sa/api/v1/common/auth/vendor-signUp (33ms)
+2026-05-05 15:39:55,133 [INFO] ➡️  GET https://dev.api.fliz.com.sa/api/v1/company/me
+2026-05-05 15:39:55,167 [INFO] ⬅️  404 https://dev.api.fliz.com.sa/api/v1/company/me (34ms)
+2026-05-05 15:39:55,177 [INFO] ➡️  PUT https://dev.api.fliz.com.sa/api/v1/company/profile
+2026-05-05 15:39:55,212 [INFO] ⬅️  404 https://dev.api.fliz.com.sa/api/v1/company/profile (35ms)
+2026-05-05 15:44:27,948 [INFO] ➡️  POST https://dev.api.fliz.com.sa/api/v1/common/auth/signUp
+2026-05-05 15:44:28,177 [INFO] ⬅️  422 https://dev.api.fliz.com.sa/api/v1/common/auth/signUp (229ms)
+2026-05-05 15:44:28,181 [INFO] ➡️  POST https://dev.api.fliz.com.sa/api/v1/common/auth/signUp
+2026-05-05 15:44:28,216 [INFO] ⬅️  422 https://dev.api.fliz.com.sa/api/v1/common/auth/signUp (35ms)
+2026-05-05 15:44:28,220 [INFO] ➡️  POST https://dev.api.fliz.com.sa/api/v1/common/auth/signUp
+2026-05-05 15:44:28,257 [INFO] ⬅️  422 https://dev.api.fliz.com.sa/api/v1/common/auth/signUp (37ms)
+2026-05-05 15:44:28,263 [INFO] ➡️  POST https://dev.api.fliz.com.sa/api/v1/common/auth/signUp
+2026-05-05 15:44:28,298 [INFO] ⬅️  422 https://dev.api.fliz.com.sa/api/v1/common/auth/signUp (35ms)
+2026-05-05 15:44:28,305 [INFO] ➡️  POST https://dev.api.fliz.com.sa/api/v1/common/auth/signUp
+2026-05-05 15:44:28,338 [INFO] ⬅️  422 https://dev.api.fliz.com.sa/api/v1/common/auth/signUp (33ms)
+2026-05-05 15:44:28,345 [INFO] ➡️  POST https://dev.api.fliz.com.sa/api/v1/common/auth/signUp
+2026-05-05 15:44:28,380 [INFO] ⬅️  422 https://dev.api.fliz.com.sa/api/v1/common/auth/signUp (35ms)
+2026-05-05 15:44:28,384 [INFO] ➡️  POST https://dev.api.fliz.com.sa/api/v1/common/auth/signUp
+2026-05-05 15:44:28,419 [INFO] ⬅️  422 https://dev.api.fliz.com.sa/api/v1/common/auth/signUp (34ms)
+2026-05-05 15:44:28,427 [INFO] ➡️  GET https://dev.api.fliz.com.sa/api/v1/vendor/me
+2026-05-05 15:44:28,459 [INFO] ⬅️  404 https://dev.api.fliz.com.sa/api/v1/vendor/me (32ms)
+2026-05-05 15:44:28,466 [INFO] ➡️  PUT https://dev.api.fliz.com.sa/api/v1/vendor/profile
+2026-05-05 15:44:28,576 [INFO] ⬅️  404 https://dev.api.fliz.com.sa/api/v1/vendor/profile (110ms)

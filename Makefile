@@ -24,13 +24,13 @@ lint:
 # --- Docker commands ---
 
 docker-build:
-	docker-compose build
+	docker compose build
 
 docker-test:
-	docker-compose up tests
+	docker compose up tests
 
 docker-ui-test:
-	docker-compose up ui-tests
+	docker compose up ui-tests
 
 # --- Reporting ---
 

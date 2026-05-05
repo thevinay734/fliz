@@ -7,8 +7,12 @@ from playwright.sync_api import Page
 from core.settings import settings
 from pages.login_page import LoginPage
 from pages.create_booking_page import CreateBookingPage
+from pages.profile_page import ProfilePage
+from pages.vendor_signup_page import VendorSignupPage
 from services.auth_service import AuthService
 from services.booking_service import BookingService
+from services.user_service import UserService
+from services.vendor_service import VendorService
 from utils.logger import get_logger
 
 logger = get_logger(__name__)
@@ -25,6 +29,16 @@ def booking_page(page: Page):
 
 
 @pytest.fixture
+def profile_page(page: Page):
+    return ProfilePage(page)
+
+
+@pytest.fixture
+def vendor_signup_page(page: Page):
+    return VendorSignupPage(page)
+
+
+@pytest.fixture
 def auth_service():
     return AuthService()
 
@@ -32,6 +46,16 @@ def auth_service():
 @pytest.fixture
 def booking_service():
     return BookingService()
+
+
+@pytest.fixture
+def user_service():
+    return UserService()
+
+
+@pytest.fixture
+def vendor_service():
+    return VendorService()
 
 
 @pytest.fixture(scope="session")
