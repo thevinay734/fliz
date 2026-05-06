@@ -1,0 +1,66 @@
+pipeline {
+    agent any
+
+    environment {
+        DOCKER_IMAGE = 'fliz-automation'
+        BASE_URL = 'https://dev.fliz.com.sa/'
+        API_BASE_URL = 'https://dev.api.fliz.com.sa/'
+    }
+
+    stages {
+        stage('Build Docker Image') {
+            steps {
+                script {
+                    sh 'docker build -t ${DOCKER_IMAGE} .'
+                }
+            }
+        }
+
+        stage('Run API Tests in Docker') {
+            steps {
+                script {
+                    sh '''
+                        docker run --rm \
+                            -e BASE_URL=${BASE_URL} \
+                            -e API_BASE_URL=${API_BASE_URL} \
+                            -e HEADLESS=true \
+                            -v $(pwd)/reports:/app/reports \
+                            -v $(pwd)/logs:/app/logs \
+                            ${DOCKER_IMAGE} \
+                            pytest tests/api/ -m api -v \
+                                --clean-alluredir \
+                                --alluredir=reports/allure-results \
+                                --junitxml=reports/junit-api.xml
+                    '''
+                }
+            }
+        }
+
+        stage('Run UI Tests in Docker') {
+            steps {
+                script {
+                    sh '''
+                        docker run --rm \
+                            -e BASE_URL=${BASE_URL} \
+                            -e API_BASE_URL=${API_BASE_URL} \
+                            -e HEADLESS=true \
+                            -v $(pwd)/reports:/app/reports \
+                            -v $(pwd)/logs:/app/logs \
+                            ${DOCKER_IMAGE} \
+                            pytest tests/ui/ -m ui -v \
+                                --clean-alluredir \
+                                --alluredir=reports/allure-results \
+                                --junitxml=reports/junit-ui.xml
+                    '''
+                }
+            }
+        }
+    }
+
+    post {
+        always {
+            junit 'reports/junit-*.xml'
+            cleanWs()
+        }
+    }
+}
