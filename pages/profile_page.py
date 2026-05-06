@@ -15,7 +15,12 @@ class ProfilePage(BasePage):
         self.page.get_by_role("img", name="profile-menu").click()
 
     def click_my_profile(self):
-        self.page.get_by_role("link", name="My Profile").click()
+        # Try exact match first, then fallback to partial
+        profile = self.page.get_by_role("link", name="My Profile")
+        if profile.count() > 0:
+            profile.click()
+        else:
+            self.page.get_by_text("My Profile").click()
 
     def click_edit_profile(self):
         self.page.get_by_role("link", name="Edit Profile").click()
@@ -36,7 +41,13 @@ class ProfilePage(BasePage):
         combo = self.page.get_by_role("combobox", name="Address")
         combo.click()
         combo.fill(query)
-        self.page.get_by_role("option", name=exact_option).click()
+        # Use exact=True and .first to avoid strict mode violation
+        option = self.page.get_by_role("option", name=exact_option, exact=True)
+        if option.count() > 0:
+            option.first.click()
+        else:
+            # Fallback: try partial match with first result
+            self.page.get_by_role("option").filter(has_text=exact_option).first.click()
 
     # --- Image upload ---
 

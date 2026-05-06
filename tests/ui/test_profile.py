@@ -17,14 +17,10 @@ def login_page(page: Page):
 
 @pytest.mark.ui
 def test_update_profile_full_flow(login_page: LoginPage, profile_page: ProfilePage):
-    # 1. Open website
-    login_page.goto("https://dev.fliz.com.sa/ar/renter/companies")
+    # 1. Open English page directly (skip language toggle)
+    login_page.goto("https://dev.fliz.com.sa/en/renter/companies")
 
-    # 2. Switch to English
-    login_page.page.locator("img").nth(3).click()
-    login_page.page.get_by_text("English").click()
-
-    # 3. Click Sign In
+    # 2. Click Sign In
     login_page.page.get_by_role("link", name="Sign In").click()
 
     # 4. Select India

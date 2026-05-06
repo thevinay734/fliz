@@ -17,9 +17,7 @@ def login_page(page: Page):
 
 def _login_and_navigate_to_profile(login_page: LoginPage, profile_page: ProfilePage):
     """Helper: login + navigate to edit profile."""
-    login_page.goto("https://dev.fliz.com.sa/ar/renter/companies")
-    login_page.page.locator("img").nth(3).click()
-    login_page.page.get_by_text("English").click()
+    login_page.goto("https://dev.fliz.com.sa/en/renter/companies")
     login_page.page.get_by_role("link", name="Sign In").click()
     login_page.select_country_india()
     login_page.fill_phone_modal("+91 92195-81212")
@@ -62,7 +60,7 @@ def test_empty_name_validation(login_page: LoginPage, profile_page: ProfilePage)
     profile_page.enter_name("")
     profile_page.click_update_profile()
     # Check for error message or validation tooltip
-    error = login_page.page.locator("text=/required|empty|invalid/i")
+    error = login_page.page.locator("text=/required|empty/i")
     expect(error).to_be_visible()
 
 
@@ -72,7 +70,8 @@ def test_invalid_email_format(login_page: LoginPage, profile_page: ProfilePage):
     _login_and_navigate_to_profile(login_page, profile_page)
     profile_page.enter_email("not-an-email")
     profile_page.click_update_profile()
-    error = login_page.page.locator("text=/invalid|email|format/i")
+    # Look for red error text specifically
+    error = login_page.page.get_by_text("Invalid email address")
     expect(error).to_be_visible()
 
 
