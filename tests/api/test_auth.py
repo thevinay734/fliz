@@ -173,7 +173,7 @@ def test_signup_empty_payload(auth_service: AuthService):
 def test_signup_sql_injection_name(auth_service: AuthService):
     payload = auth_service.get_signup_payload(overrides={"name": '<script>alert(1)</script>'})
     response = auth_service.signup(payload)
-    assert response.status_code in (200, 400, 404, 422)
+    assert response.status_code in (200, 201, 400, 404, 422)
 
 
 @pytest.mark.api

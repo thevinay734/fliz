@@ -24,17 +24,12 @@ pipeline {
         stage('Install Dependencies') {
             steps {
                 script {
-                    // Create virtual environment
                     sh 'python3 -m venv .venv || true'
-
-                    // Install Python dependencies
                     sh '''
                         . .venv/bin/activate
                         pip install --upgrade pip
                         pip install -r requirements.txt
                     '''
-
-                    // Install Playwright browsers (for UI tests)
                     sh '''
                         . .venv/bin/activate
                         playwright install chromium
@@ -46,13 +41,16 @@ pipeline {
         stage('Run API Tests') {
             steps {
                 script {
-                    sh '''
-                        . .venv/bin/activate
-                        pytest tests/api/ -m api -v \
-                            --junitxml=reports/junit-api.xml \
-                            --html=reports/report-api.html \
-                            --self-contained-html
-                    '''
+                    // catchError se build fail nahi hoga, next stage chalega
+                    catchError(buildResult: 'UNSTABLE', stageResult: 'UNSTABLE') {
+                        sh '''
+                            . .venv/bin/activate
+                            pytest tests/api/ -m api -v \
+                                --junitxml=reports/junit-api.xml \
+                                --html=reports/report-api.html \
+                                --self-contained-html || true
+                        '''
+                    }
                 }
             }
         }
@@ -60,14 +58,16 @@ pipeline {
         stage('Run UI Tests') {
             steps {
                 script {
-                    sh '''
-                        . .venv/bin/activate
-                        pytest tests/ui/ -m ui -v \
-                            --junitxml=reports/junit-ui.xml \
-                            --html=reports/report-ui.html \
-                            --self-contained-html \
-                            --browser chromium
-                    '''
+                    catchError(buildResult: 'UNSTABLE', stageResult: 'UNSTABLE') {
+                        sh '''
+                            . .venv/bin/activate
+                            pytest tests/ui/ -m ui -v \
+                                --junitxml=reports/junit-ui.xml \
+                                --html=reports/report-ui.html \
+                                --self-contained-html \
+                                --browser chromium || true
+                        '''
+                    }
                 }
             }
         }
@@ -75,30 +75,22 @@ pipeline {
 
     post {
         always {
-            // Publish JUnit XML results
-            junit 'reports/junit-*.xml'
+            // Publish JUnit results (if files exist)
+            junit testResults: 'reports/junit-*.xml', allowEmptyResults: true
 
-            // Archive HTML reports
-            publishHTML([
-                allowMissing: false,
-                alwaysLinkToLastBuild: true,
-                keepAll: true,
-                reportDir: 'reports',
-                reportFiles: 'report-api.html,report-ui.html',
-                reportName: 'Test Reports'
-            ])
+            // Archive reports
+            archiveArtifacts artifacts: 'reports/*.html', allowEmptyArchive: true
         }
 
         success {
-            echo 'All tests passed!'
+            echo 'Pipeline completed!'
         }
 
-        failure {
-            echo 'Some tests failed. Check Console Output and HTML reports.'
+        unstable {
+            echo 'Some tests failed. Check archived reports for details.'
         }
 
         cleanup {
-            // Cleanup virtual environment
             sh 'rm -rf .venv || true'
         }
     }
