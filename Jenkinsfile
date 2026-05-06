@@ -49,8 +49,6 @@ pipeline {
                     sh '''
                         . .venv/bin/activate
                         pytest tests/api/ -m api -v \
-                            --clean-alluredir \
-                            --alluredir=reports/allure-results \
                             --junitxml=reports/junit-api.xml \
                             --html=reports/report-api.html \
                             --self-contained-html
@@ -65,8 +63,6 @@ pipeline {
                     sh '''
                         . .venv/bin/activate
                         pytest tests/ui/ -m ui -v \
-                            --clean-alluredir \
-                            --alluredir=reports/allure-results \
                             --junitxml=reports/junit-ui.xml \
                             --html=reports/report-ui.html \
                             --self-contained-html \
@@ -75,36 +71,10 @@ pipeline {
                 }
             }
         }
-
-        stage('Run Smoke Tests') {
-            when {
-                expression { params.RUN_SMOKE == true }
-            }
-            steps {
-                script {
-                    sh '''
-                        . .venv/bin/activate
-                        pytest -m smoke -v \
-                            --clean-alluredir \
-                            --alluredir=reports/allure-results-smoke \
-                            --junitxml=reports/junit-smoke.xml
-                    '''
-                }
-            }
-        }
     }
 
     post {
         always {
-            // Publish Allure Report
-            allure([
-                includeProperties: false,
-                jdk: '',
-                properties: [],
-                reportBuildPolicy: 'ALWAYS',
-                results: [[path: 'reports/allure-results']]
-            ])
-
             // Publish JUnit XML results
             junit 'reports/junit-*.xml'
 
@@ -124,7 +94,7 @@ pipeline {
         }
 
         failure {
-            echo 'Some tests failed. Check Allure/JUnit reports for details.'
+            echo 'Some tests failed. Check Console Output and HTML reports.'
         }
 
         cleanup {

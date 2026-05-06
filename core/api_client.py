@@ -11,6 +11,15 @@ from tenacity import retry, retry_if_exception_type, stop_after_attempt, wait_ex
 from core.settings import settings
 
 
+def _retry_config():
+    return retry(
+        stop=stop_after_attempt(settings.MAX_RETRIES),
+        wait=wait_exponential(multiplier=settings.RETRY_BACKOFF, min=1, max=30),
+        retry=retry_if_exception_type((requests.ConnectionError, requests.Timeout)),
+        reraise=True,
+    )
+
+
 class ApiClient:
     """Enterprise-grade HTTP client with logging, retry, auth, and hooks."""
 
@@ -83,17 +92,6 @@ class ApiClient:
     def _run_after_hooks(self, response: requests.Response):
         for hook in self._after_response_hooks:
             hook(response)
-
-    # --- Retry decorator ---
-
-    @staticmethod
-    def _retry_config():
-        return retry(
-            stop=stop_after_attempt(settings.MAX_RETRIES),
-            wait=wait_exponential(multiplier=settings.RETRY_BACKOFF, min=1, max=30),
-            retry=retry_if_exception_type((requests.ConnectionError, requests.Timeout)),
-            reraise=True,
-        )
 
     # --- HTTP Methods ---
 
