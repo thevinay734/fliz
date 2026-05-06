@@ -1,11 +1,14 @@
-from typing import Any
+
+
+
+from typing import List, Union
 
 
 class ApiAssertions:
     """Shared assertion helpers for API test validation."""
 
     @staticmethod
-    def assert_status_code(response, expected: int | tuple):
+    def assert_status_code(response, expected: Union[int, tuple]):
         if isinstance(expected, int):
             assert response.status_code == expected, (
                 f"Expected status {expected}, got {response.status_code}"
@@ -16,7 +19,7 @@ class ApiAssertions:
             )
 
     @staticmethod
-    def assert_response_has_keys(response, keys: list[str]):
+    def assert_response_has_keys(response, keys: List[str]):
         try:
             data = response.json()
         except ValueError:
