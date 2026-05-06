@@ -66,9 +66,6 @@ pipeline {
 
     post {
         always {
-            // Publish JUnit results (if files exist)
-            junit testResults: 'reports/junit-*.xml', allowEmptyResults: true
-
             // Archive reports
             archiveArtifacts artifacts: 'reports/*.html', allowEmptyArchive: true
         }
