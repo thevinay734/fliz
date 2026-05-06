@@ -40,35 +40,26 @@ pipeline {
 
         stage('Run API Tests') {
             steps {
-                script {
-                    // catchError se build fail nahi hoga, next stage chalega
-                    catchError(buildResult: 'UNSTABLE', stageResult: 'UNSTABLE') {
-                        sh '''
-                            . .venv/bin/activate
-                            pytest tests/api/ -m api -v \
-                                --junitxml=reports/junit-api.xml \
-                                --html=reports/report-api.html \
-                                --self-contained-html || true
-                        '''
-                    }
-                }
+                sh '''
+                    . .venv/bin/activate
+                    pytest tests/api/ -m api -v \
+                        --junitxml=reports/junit-api.xml \
+                        --html=reports/report-api.html \
+                        --self-contained-html || true
+                '''
             }
         }
 
         stage('Run UI Tests') {
             steps {
-                script {
-                    catchError(buildResult: 'UNSTABLE', stageResult: 'UNSTABLE') {
-                        sh '''
-                            . .venv/bin/activate
-                            pytest tests/ui/ -m ui -v \
-                                --junitxml=reports/junit-ui.xml \
-                                --html=reports/report-ui.html \
-                                --self-contained-html \
-                                --browser chromium || true
-                        '''
-                    }
-                }
+                sh '''
+                    . .venv/bin/activate
+                    pytest tests/ui/ -m ui -v \
+                        --junitxml=reports/junit-ui.xml \
+                        --html=reports/report-ui.html \
+                        --self-contained-html \
+                        --browser chromium || true
+                '''
             }
         }
     }
@@ -83,11 +74,7 @@ pipeline {
         }
 
         success {
-            echo 'Pipeline completed!'
-        }
-
-        unstable {
-            echo 'Some tests failed. Check archived reports for details.'
+            echo 'Pipeline completed successfully!'
         }
 
         cleanup {
